@@ -11,7 +11,9 @@ A definir :)
 ## Participantes
 
 Gabriel Van Loon
+
 Giovani Decico Lucafó
+
 Tamiris Fernandes Tinelli
 
 Projeto para Disciplina de Processamento de Imagens (2021.1)
