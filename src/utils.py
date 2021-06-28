@@ -1,8 +1,6 @@
 import imageio
 import numpy as np
 
-def test():
-    print("Hello World")
 
 def load_image(image_path):
     """
