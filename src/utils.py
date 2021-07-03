@@ -17,7 +17,7 @@ def save_image(image, image_path):
     """
     return None 
 
-def image_downsamplinng(image, max_size=1024, method="avg"):
+def image_downsampling(image, max_size=1024, method="avg"):
     """
     Receive a image and return a copy with preserved proportions and max width
     or height equal or less @max_size. Return the copy to the user.
@@ -41,3 +41,10 @@ def image_pixel_clip(image, min=0, max=255):
     """
     output = np.clip(np.copy(image), min, max)  
     return output.astype(np.uint8)
+
+def image_to_grayscale(image):
+    """
+    Receive a image turn it to grayscale using the luminance method.
+    """
+    output = np.floor(0.299*image[:,:,0] + 0.587*image[:,:,1] + 0.114*image[:,:,2]).astype(np.uint8)
+    return output
