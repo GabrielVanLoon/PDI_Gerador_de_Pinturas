@@ -32,3 +32,27 @@ def otsu_segmentation(gray_image, value=255):
         
     output = threshold_segmentation(gray_image, threshold=np.argmin(min_var), value=value)
     return output, np.argmin(min_var)
+
+
+def labels_to_edges(labels):
+    """
+    Receive a color label map and return a edge map where:
+    - [i,j] == 1 if is edge
+    - [i,j] == 0 if is not edge
+    """
+
+    # Pre-proccess: add symetric pad to avoid corners bugs
+    edge_map = np.zeros(labels.shape, dtype=np.int32)
+    labels   = np.pad(labels, 1, mode="symmetric")
+    
+    # Apply Laplacian filter to detect if any 8-neighboor is diff
+    # not edge -> 0 (black)
+    # edge     -> 1 (white)
+    for i in range(1,labels.shape[0]-1):
+        for j in range(1,labels.shape[1]-1):
+            same_color = np.sum(labels[i-1:i+2,j-1:j+2] == labels[i,j]) != 9
+            # print(i,j,same_color)
+            # print(labels[i-1:i+2,j-1:j+2])
+            edge_map[i-1, j-1] = same_color * 1
+    
+    return edge_map
