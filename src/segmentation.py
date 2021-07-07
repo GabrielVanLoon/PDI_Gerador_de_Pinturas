@@ -56,3 +56,27 @@ def labels_to_edges(labels):
             edge_map[i-1, j-1] = same_color * 1
     
     return edge_map
+
+def labels_to_edges_thin(labels):
+    """
+    labels_to_edges optimized to avoid thick edges. 
+    Create the edgmap running labels line by line.
+    """
+
+    # Pre-proccess: add symetric pad to avoid corners bugs
+    labels   = np.pad(labels, 1, mode="symmetric")
+    edge_map = np.zeros(labels.shape, dtype=np.int32)
+    
+    # Apply Laplacian filter to detect if any 4-neighboor is diff
+    # not edge -> 0 (black)
+    # edge     -> 1 (white)
+    # Como percorre de left-right top-down olha apenas vizinhos já percorridos (cima ou esquerda)
+    for i in range(1,labels.shape[0]-1):
+        for j in range(1,labels.shape[1]-1):
+            # for [vi, vj] in [[i+1,j+1],[i-1,j+1],[i-1,j-1],[i+1,j-1],[i,j+1],[i,j-1],[i+1,j],[i-1,j]]:
+            for [vi, vj] in [[i-1,j-1],[i-1,j],[i-1,j+1],[i,j-1]]:
+                if labels[i,j] != labels[vi,vj] and edge_map[vi,vj] == 0:
+                    edge_map[i,j] = 1
+                    break # Already has edge neighboor
+    
+    return edge_map[1:edge_map.shape[0]-1,1:edge_map.shape[1]-1]
