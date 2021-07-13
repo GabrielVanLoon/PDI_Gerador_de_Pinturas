@@ -1,0 +1,4 @@
+./images/raw/abstract_rainbow.png
+abstract_rainbow
+32
+n

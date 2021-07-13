@@ -1,0 +1,6 @@
+./images/raw/scenario_wall.png
+scenario_wall_slic
+16
+y
+100
+112

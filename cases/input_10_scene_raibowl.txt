@@ -1,0 +1,6 @@
+./images/raw/scenario_rainbow.png
+scenario_rainbow_slic
+16
+y
+40
+96

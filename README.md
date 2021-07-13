@@ -1,5 +1,7 @@
 # Geração de Imagens para Pintura Terapeutica
 
+![Pintura do ICMC](./images/output/icmc_recolorized.jpg)
+
 ## Resumo do Projeto
 
 Geração de imagens para pintura terapeutica a partir de imagens com diferentes propriedades recebidas pelo usuário (eg: imagens fotorealistas, selfies, quadros, pinturas, desenhos animados etc).  
@@ -66,8 +68,6 @@ Para realização dos testes utilizamos imagens com diferentes propriedades de u
 Buscamos imagens com diferentes propriedades propositalmente para buscar cenários cujo tipo de imagem gerasse alguma limitação ou dificuldade adicional (Ex: retratos foto realistas, desenhos artificiais bem definidos, pinturas abstratas, pinturas monocromáticas).
 
 ## Resultados Obtidos
-
-![Pintura do ICMC](./images/output/icmc_recolorized.jpg)
 
 ### Explorando métodos e alternativas
 

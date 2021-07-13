@@ -1,0 +1,6 @@
+./images/raw/abstract_rainbow.png
+abstract_rainbow_slic
+32
+y
+40
+112

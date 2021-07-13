@@ -1,0 +1,4 @@
+./images/raw/3d_woman.png
+3d_woman
+16
+n

@@ -1,0 +1,6 @@
+./images/raw/3d_woman.png
+3d_woman_slic
+16
+y
+80
+92

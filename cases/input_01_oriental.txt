@@ -1,5 +1,5 @@
 ./images/raw/oriental_selfie.jpg
-oriental_selfie
+oriental_selfie_slic
 16
 y
 20

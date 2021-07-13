@@ -1,0 +1,6 @@
+./images/raw/blackandwhite_graffiti.png
+blackandwhite_graffiti_N4_slic
+4
+y
+60
+96
