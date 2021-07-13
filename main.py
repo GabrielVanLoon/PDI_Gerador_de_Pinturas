@@ -104,7 +104,7 @@ def main():
         print("[ ] Final Step - Gerando a imagem colorível e seu preview...")
         edgesmap = labels_to_edges_thin(predicted_labels)
         imageio.imwrite(f"./images/output/{output_name}_recolorized.jpg", image_recolorized.astype(np.uint8))
-        imageio.imwrite(f"./images/output/{output_name}_edges_slic.jpg", edgesmap.astype(np.uint8) * 255)
+        imageio.imwrite(f"./images/output/{output_name}_edges.jpg", edgesmap.astype(np.uint8) * 255)
     except:
         print("[x] Erro: ocorreu um erro durante a criação das imagens :(")
         exit(0)

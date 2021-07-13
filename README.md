@@ -15,31 +15,65 @@ Por fim, para garantir um resultado satisfatório do projeto e que o output poss
 - Limitar o número de cores a serem utilizadas, pois em um cenário real uma pessoa não teria todo o espectro de cores.
 - Garantir que as áreas pintáveis foram geradas de forma razoável e de fácil interpretação.
 
+## Estrutura do Projeto e Como Executar
+
+Para executar o projeto, recomendamos o uso do script `main.py` que irá solicitar alguns parâmetros de configuração para o usuário e salvar os resultados obtidos na pasta `./images/output/`. Recomendamos a leitura dos arquivos em `./case` para garantir que os inputs estão sendo inseridos nos formatos corretos.
+
+```
+/
+| -- main.py            Script com pipeline final p/ geração das imagens de preview e pintura.
+| -- dependencies.txt   Lista de dependências do projeto.
+| -- /src               Pasta com funções utilizadas ao longo do projeto;.
+| -- /exploratory       Notebooks utilizados para estudo e exploração de técnicas de PDI.
+| -- /cases             Entradas de exemplo para o arquivo main.py
+| -- /images            Pasta com algumas das imagens utilizadas como input do projeto
+```
+
+Recomendamos o uso do Python 3 e a instalação das seguintes dependências listadas em `dependencies.txt`.
+
+## Descrição do Pipeline de Processamento
+
+O pipeline encontrado possui uma primeira etapa de pré-processamento e extração de paleta em comum mas consta com uma etapa de segmentação opcional utilizando o método SLIC (motivo discutido logo em seguida)
+
+- **Pré-processamento**
+  - **Leitura da Imagem** no formato `png` ou `jpg`
+  - **Image Downsampling** para dimensões máximas de 1000x1000
+  - **Image Enhance** utilizando Gaussian Filter (`sigma=2`)
+  - ~~Quantitização da imagem para B bits para remover possíveis ruídos~~
+- **Extração de Paleta de Cores (Quantização)**
+  - **Kmeans Clustering** para extração das N Cores
+  - **Recolorização** da imagem utilizando apenas cores da paleta
+- **Quebra da imagem em Superpixels (Opcional)**
+  - **SLIC Segmentation** para encontrar clusters de regiões de cores semelhantes
+  - **Recolorização SLIC** da imagem utilizando a intensidade média de cada cluster
+  - **Recolorização dos Clusters** aplicaçando a paleta de cores
+- **Geração da Imagem Colorível e seu Preview**
+  - **Edge Detection** por meio do mapa de labels/cores 
+  - **Export das imagems** recolorizadas e de bordas na pasta `./images/output/`
+
+### *Quando utilizar o método SLIC?*
+
+Caso a imagem final possua regiões muito estreitas para serem de fato coloridas ou queira ter um maior controle no nível de detalhes final com maior precisão. 
+
+### *Quando (não) utilizar o método SLIC?*
+
+Recomendamos o uso do método SLIC em imagens complexas e com bordas pouco definidas. Um exemplo de quando não utizar o método seria em imagens artificiais como imagens de quadrinhos ou desenhos de animes.
+
 ## Imagens de Teste
 
 Para realização dos testes utilizamos imagens com diferentes propriedades de uma base de imagens com licença copyleft: [https://unsplash.com/](https://unsplash.com/) e podem ser encontradas na pasta `images/raw/`.
 
-Buscamos imagens com diferentes propriedades propositalmente para buscar cenários cujo tipo de imagem gerasse alguma limitação ou dificuldade adicional (TODO: ainda sendo explorado :D)
+Buscamos imagens com diferentes propriedades propositalmente para buscar cenários cujo tipo de imagem gerasse alguma limitação ou dificuldade adicional (Ex: retratos foto realistas, desenhos artificiais bem definidos, pinturas abstratas, pinturas monocromáticas).
 
-## Descrição do Pipeline de Processamento
+## Resultados Obtidos
 
-O método final ainda está sendo pensado e estudado nos arquivos da pasta `exploratory/` mas até o momento imaginamos em algo nos seguintes passos:
+![Pintura do ICMC](./images/output/icmc_recolorized.jpg)
 
-- **1ª Etapa - Pré-processamento**
-  - Leitura da imagem no formato `png` ou `jpg`
-  - Image downsampling em caso de imagens muito grandes para no máximo (1000x1000)
-  - Quantitização da imagem para B bits para remover possíveis ruídos
-  - Uso ou não de alguma técnica de suavização (em estudo)
-- **2ª Etapa - Segmentação da Imagem**
-  - Quebra da imagem em regiões de cores similares
-  - Agrupamento de regiões para diminuição do número de cores (algumas ideias de métodos:
-    - Selecioanr as cores mais utilizadas via histogramas
-    - Selecionar cores considerando objetos em foco (centrais)
-    - Outros métodos a serem pesquisados :3
-  - **3ª Etapa - Geração de Imagem Colorível**
-    - A partir da imagem anterior, gerar a imagem preto e branco com as bordas das regiões coloríveis
-    - Gerar uma versão colorida para preview
-    - Se possível inserir os números que indicam o mapeamento cor -> região na primeira imagem.
+### Explorando métodos e alternativas
+
+Na pasta `./exploratory` encontram-se alguns dos notebooks (ordenados aproximadamente baseado na ordem de progressão do projeto) utilizados pelo grupo para explorar os métodos utilizados (ou não) no pipeline final. Cada documento possui (geralmente) seu objetivo e comentários dos resultados obtidos no decorrer de cada documento.
+
+TODO AQUI Casos bons e ruins :P
 
 ## Participantes
 
