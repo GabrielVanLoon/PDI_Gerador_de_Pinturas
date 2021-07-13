@@ -1,0 +1,6 @@
+./images/raw/oriental_selfie.jpg
+oriental_selfie
+16
+y
+20
+128

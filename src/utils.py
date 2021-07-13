@@ -1,12 +1,13 @@
 import imageio
 import numpy as np
+import math
 
 
 def load_image(image_path):
     """
     Receive a image path and return a numpy array with with type np.uint8.
     """
-    return None
+    return imageio.imread(image_path).astype(np.uint8)
 
 def save_image(image, image_path):
     """
@@ -15,13 +16,43 @@ def save_image(image, image_path):
     """
     return None 
 
-def image_downsampling(image, max_size=1024, method="avg"):
+def image_downsampling(image, max_size=1024):
     """
     Receive a image and return a copy with preserved proportions and max width
     or height equal or less @max_size. Return the copy to the user.
     Implemented methods: 'avg', 'median', 'min', 'max'
     """
-    return None 
+    # armazenando as dimensoes da imagem
+    shapeN = image.shape[0]
+    shapeM = image.shape[1]
+    comp = image.shape[2]
+    
+    if shapeN <= max_size and shapeM <= max_size:
+        # se as dimensoes da imagem já são menores do que max_size
+        # retorna a imagem, sem fazer alteracoes
+        return image
+    
+    # se o lado maior eh N (formato retrato)
+    if shapeN > shapeM:
+        # descobrindo a dimensao da nova imagem
+        newN = max_size
+        newM = math.floor(newN / shapeN * shapeM)
+    # se o lado maior eh M (formato paisagem)
+    else:
+        # descobrindo a dimensao da nova imagem
+        newM = max_size
+        newN = math.floor(newM / shapeM * shapeN)
+        
+    # Criacao da imagem amostrada (sampling) de tamanho newN x newM 
+    imageSamp = np.zeros((newN,newM,comp)).astype(np.uint8)
+
+    # preenchimento da nova imagem
+    step = shapeN/float(newN)
+    for x in range(newN):
+        for y in range(newM):
+            imageSamp[x,y] = image[math.floor(x*step),math.floor(y*step)]
+    
+    return imageSamp
 
 def image_minmax_norm(image, max=255):
     """
