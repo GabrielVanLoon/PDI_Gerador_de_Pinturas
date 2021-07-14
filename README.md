@@ -69,11 +69,17 @@ Buscamos imagens com diferentes propriedades propositalmente para buscar cenári
 
 ## Resultados Obtidos
 
-### Explorando métodos e alternativas
+![Imagem Colorível - Grafitti (2 Cores)](images/output/blackandwhite_graffiti_N2_slic_edges.jpg)
 
 Na pasta `./exploratory` encontram-se alguns dos notebooks (ordenados aproximadamente baseado na ordem de progressão do projeto) utilizados pelo grupo para explorar os métodos utilizados (ou não) no pipeline final. Cada documento possui (geralmente) seu objetivo e comentários dos resultados obtidos no decorrer de cada documento.
 
-TODO AQUI Casos bons e ruins :P
+No geral, o uso do pipeline de extração de paleta de cores em conjunto com a segmentação SLIC e uma etapa simples de pré-processamento se mostraram satisfatórios para geração das imagens coloríveis após um refinamento manual simples dos parâmetros de entrada para cada caso (ver `./images/output`).
+
+Como exemplo das opções levantadas e não utilizadas citamos a de utilizar quantização utilizando MSB ou Luminance para tentar realizar um mapeamento dos canais RGB em um canal único para serem utilizadas as técnicas de segmentação vistas em aula, mas que a utilização do SLIC permitiu a obtenção de uma segmentação melhor e respeitando as variações de pequenas nuances de cores na imagem mesmo em pinturas monocromáticas.
+
+Quanto aos 3 métodos de extração de paleta de cores levantados (citados com mais calma no notebook de `Color Palette Extraction`) escolheu-se o Kmeans devido a sua simplicidade e ao fato de grande parte dos artigos consultados utilizarem técnicas baseadas no método para essa tarefa (geralmente com alguma melhoria como otimização dos clusters inicias) apesar de o método ter algumas desvantagens como: custo de tempo (cerca de 1~2 min para imagens de 1000x1000) e seleção de cores menos saturadas.
+
+Como pontos de melhoria levantados podemos citar a possibilidade de implementar algumas das técnicas de otimazação do Kmeans para extração de uma paleta de cores que favoreça pontos de destaque da imagem, assim como a possibilidade de inserir no pipeline etapas que permitam extrair features da imagem para predição dos parâmetros a serem utilizados na quantidade de cores da paleta (N) e nos parâmetros de Nº de Segmentos e Compacidade do SLIC.
 
 ## Participantes
 
