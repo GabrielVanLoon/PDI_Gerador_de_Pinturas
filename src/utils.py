@@ -47,10 +47,11 @@ def image_downsampling(image, max_size=1024):
     imageSamp = np.zeros((newN,newM,comp)).astype(np.uint8)
 
     # preenchimento da nova imagem
-    step = shapeN/float(newN)
+    stepX = shapeN/float(newN)
+    stepY = shapeM/float(newM)
     for x in range(newN):
         for y in range(newM):
-            imageSamp[x,y] = image[math.floor(x*step),math.floor(y*step)]
+            imageSamp[x,y] = image[math.floor(x*stepX),math.floor(y*stepY)]
     
     return imageSamp
 
